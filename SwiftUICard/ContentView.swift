@@ -14,7 +14,7 @@ struct ContentView: View {
         
         let diff = abs(x)
         if diff < 100 {
-            scale = 1 + (100-diff) / 500
+            scale = 1 + (100 - diff) / 500
         }
         
         return scale
@@ -29,22 +29,32 @@ struct ContentView: View {
                         ForEach(0..<20) { num in
                             GeometryReader { proxy in
                                 
-                                let scale = getScale(proxy: proxy)
-                                
-                                Image("kvp")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 150)
-                                    .clipped()
-                                    .cornerRadius(5)
-                                    .shadow(radius: 5)
-                                    .scaleEffect(CGSize(width: scale, height: scale))
-                                
-//                               Text(scale.description)
-//                                    .font(.system(size:30, weight: .bold))
+                                NavigationLink(destination: Image("kvp"),
+                                               label: {
+                                    VStack{
+                                        let scale = getScale(proxy: proxy)
+                                        
+                                        Image("kvp")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 150)
+                                            .clipped()
+                                            .cornerRadius(5)
+                                            .shadow(radius: 5)
+                                            .scaleEffect(CGSize(width: scale, height: scale))
+                                            //.overlay(RoundedRectangle(cornerRadius: 5).stroke(lineWidth: 0.5))
+                                            .animation(.easeOut(duration:0.5))
+                                        
+                                        Text("Kurtlar Vadisi")
+                                            .padding(.top)
+                                            .multilineTextAlignment(.center)
+                                            .foregroundColor(Color(.label))
+                                    }
+                                    })
+        
+
                             }
-                            .background(Color.red)
-                            .frame(width: 100, height: 300)
+                            .frame(width: 125, height: 300)
                         }
                     }.padding(32)
                 }
